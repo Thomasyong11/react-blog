@@ -18,6 +18,8 @@ interface Props {
 }
 const Post = ({ post }: Props) => {
     const [submitted, setSubmitted] = useState(false)
+    //@ts-ignore
+    const pdate = new Date(post._createdAt).toLocaleString()
     console.log(post);
     const {
         register,
@@ -50,8 +52,11 @@ const Post = ({ post }: Props) => {
                 <img
                     className='h-10 w-10 rounded-full'
                     src={urlFor(post.author.image).url()!} alt="" />
-                <p className='font-extralight text-sm'>Blog post by <span className='text-green-500'>{post.author.name}</span> {" "}
-                    - Published at {new Date(post._createdAt).toLocaleString()}</p>
+                <p className='font-extralight text-sm'>Blog post by
+                    <span className='text-green-500'>{" "}{post.author.name}{" "}</span>
+                    - Published at {" "}
+                    {pdate}
+                </p>
             </div>
             <div className='mt-10'>
                 <PortableText
@@ -95,6 +100,7 @@ const Post = ({ post }: Props) => {
                         {...register("_id")}
                         type="hidden"
                         name="_id"
+                        //@ts-ignore
                         value={post._id}
                     />
                     <label className='block mb-5'>
